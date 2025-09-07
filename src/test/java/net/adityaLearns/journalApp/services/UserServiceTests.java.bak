@@ -1,0 +1,45 @@
+package net.engineeringdigest.journalApp.services;
+
+import org.assertj.core.util.Strings;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@SpringBootTest
+public class UserServiceTests {
+
+    @Autowired
+    public UserService userService;
+
+    @Test
+    public void testAdd(){
+        assertEquals(4,2+2);
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings={
+            "aditya",
+                "admin",
+                "hello"
+        })
+    public void findByUserNameTest(String name){
+        assertNotNull(userService.findByUserName(name));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1,1,2",
+            "2,2,4",
+            "3,3,5"
+    })
+    public void testAddUsingCSVSource(int a,int b,int expected){
+        assertEquals(expected,a+b);
+    }
+}
